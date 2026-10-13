@@ -1,0 +1,301 @@
+:root {
+  --ink: #263238;
+  --muted-ink: #607078;
+  --cream: #fffaf0;
+  --card-back: #4c6fff;
+  --card-back-dark: #344fc0;
+  --card-front: #ffffff;
+  --coral: #ff8066;
+  --yellow: #ffd166;
+  --mint: #a8e6cf;
+  --shadow: 0 18px 40px rgba(43, 57, 79, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  font-family: 'Trebuchet MS', sans-serif;
+  background-color: #fff3d8;
+  background-image: radial-gradient(circle at 10% 15%, rgba(168, 230, 207, 0.75) 0 8%, transparent 8.2%), radial-gradient(circle at 92% 85%, rgba(255, 128, 102, 0.35) 0 12%, transparent 12.2%), linear-gradient(135deg, #fff3d8 0%, #ffe6d5 100%);
+}
+
+button {
+  font: inherit;
+}
+
+.game-shell {
+  width: min(100% - 32px, 620px);
+  margin: 0 auto;
+  padding: 48px 0 56px;
+}
+
+.game-header {
+  text-align: center;
+  animation: rise-in 0.55s ease-out both;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--coral);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 8px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: clamp(2.2rem, 7vw, 3.7rem);
+  line-height: 1;
+}
+
+.instructions {
+  margin-bottom: 28px;
+  color: var(--muted-ink);
+  font-size: 1rem;
+}
+
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+  animation: rise-in 0.55s 0.08s ease-out both;
+}
+
+.score-item {
+  padding: 13px 10px 10px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(43, 57, 79, 0.08);
+}
+
+.score-label {
+  display: block;
+  color: var(--muted-ink);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.score-item strong {
+  display: block;
+  margin-top: 2px;
+  color: var(--card-back-dark);
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 1.7rem;
+  line-height: 1.1;
+}
+
+.game-area {
+  padding: clamp(16px, 4vw, 28px);
+  background: rgba(255, 250, 240, 0.85);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  animation: rise-in 0.55s 0.16s ease-out both;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(8px, 2.4vw, 14px);
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  color: white;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  perspective: 700px;
+}
+
+.card:focus-visible {
+  outline: 4px solid var(--coral);
+  outline-offset: 4px;
+  border-radius: 14px;
+}
+
+.card-inner {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+.card.is-flipped .card-inner,
+.card.is-matched .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  color: rgba(255, 255, 255, 0.95);
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: clamp(1.8rem, 7vw, 3rem);
+  background: var(--card-back);
+  border: 4px solid rgba(255, 255, 255, 0.36);
+  box-shadow: inset 0 -5px 0 var(--card-back-dark), 0 6px 0 rgba(52, 79, 192, 0.15);
+}
+
+.card-front {
+  font-size: clamp(2rem, 8vw, 3.4rem);
+  background: var(--card-front);
+  border: 4px solid var(--yellow);
+  transform: rotateY(180deg);
+  box-shadow: 0 6px 0 rgba(255, 209, 102, 0.3);
+}
+
+.card:not(.is-flipped):not(.is-matched):hover .card-inner {
+  transform: translateY(-4px) rotateZ(-2deg);
+}
+
+.card.is-matched .card-front {
+  background: var(--mint);
+  border-color: #74c9a8;
+  box-shadow: 0 6px 0 rgba(116, 201, 168, 0.25);
+}
+
+.card.is-matched .card-inner {
+  animation: match-pop 0.45s ease-out;
+}
+
+.victory-message {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 24px 0 18px;
+  padding: 14px 16px;
+  color: #395146;
+  background: var(--mint);
+  border-left: 6px solid #5bb493;
+  border-radius: 12px;
+  animation: rise-in 0.4s ease-out both;
+}
+
+.victory-icon {
+  font-size: 2rem;
+}
+
+.victory-message h2 {
+  margin-bottom: 2px;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.victory-message p {
+  margin-bottom: 0;
+  font-size: 0.92rem;
+}
+
+.restart-button {
+  display: block;
+  min-width: 140px;
+  margin: 24px auto 0;
+  padding: 11px 24px;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  background: var(--coral);
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 5px 0 #dc654e;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.restart-button:hover,
+.restart-button:focus-visible {
+  background: #f26f55;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #dc654e;
+}
+
+.restart-button:focus-visible {
+  outline: 4px solid rgba(255, 128, 102, 0.35);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes match-pop {
+  0%, 100% { transform: rotateY(180deg) scale(1); }
+  50% { transform: rotateY(180deg) scale(1.08); }
+}
+
+@media (max-width: 420px) {
+  .game-shell {
+    width: min(100% - 20px, 620px);
+    padding-top: 30px;
+  }
+
+  .game-area {
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  .scoreboard {
+    gap: 7px;
+  }
+
+  .score-item {
+    padding: 10px 4px 8px;
+  }
+
+  .score-item strong {
+    font-size: 1.45rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

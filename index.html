@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A colorful emoji memory matching game.">
+  <title>Emoji Memory Match</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="game-header">
+      <p class="eyebrow">A tiny test of memory</p>
+      <h1>🧠 Emoji Memory Match</h1>
+      <p class="instructions">Flip two cards and find the matching pairs!</p>
+    </header>
+
+    <section class="scoreboard" aria-label="Game statistics">
+      <div class="score-item">
+        <span class="score-label">Moves</span>
+        <strong id="moves">0</strong>
+      </div>
+      <div class="score-item">
+        <span class="score-label">Pairs</span>
+        <strong id="matched-pairs">0 / 6</strong>
+      </div>
+      <div class="score-item">
+        <span class="score-label">Time</span>
+        <strong id="timer">00:00</strong>
+      </div>
+    </section>
+
+    <section class="game-area" aria-labelledby="board-title">
+      <h2 id="board-title" class="visually-hidden">Memory card board</h2>
+      <div id="game-board" class="game-board" role="grid" aria-label="Memory cards"></div>
+
+      <div id="victory-message" class="victory-message" role="status" aria-live="polite" hidden>
+        <span class="victory-icon" aria-hidden="true">🎉</span>
+        <div>
+          <h2>You found them all!</h2>
+          <p>You won in <strong id="final-moves">0 moves</strong> and <strong id="final-time">00:00</strong>.</p>
+        </div>
+      </div>
+
+      <button id="restart-button" class="restart-button" type="button">New Game</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
